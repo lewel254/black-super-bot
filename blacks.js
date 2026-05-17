@@ -459,7 +459,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║    ░█─── ░█▄▄▄█ ░█─── 
 ║    ░█▄▄█ ──░█── ░█▄▄█ 
 ╚════════════════════╝
- ════════════════════════╗
+ ════════════════════════
 > 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 𝐌𝐎𝐃𝐔𝐋𝐄𝐒    
 ╔════════════════════════╣
 ║   🎬 𝐯𝐢𝐝𝐞𝐨
@@ -476,10 +476,10 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   🎼 𝐥𝐲𝐫𝐢𝐜𝐬
 ║   📸 𝐢𝐧𝐬𝐭a
 ║   🦉 image
-║   ✡️ music
+║   🎵 music
 ╚════════════════════════╣
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐄𝐃𝐈𝐓 𝐌𝐎𝐃𝐔𝐋𝐄𝐒        
 ╔════════════════════════╣
 ║   🖼 𝐬𝐭𝐢𝐜𝐤𝐞𝐫
@@ -493,9 +493,10 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   ✂ 𝐭𝐚𝐤𝐞
 ║   ✍ 𝐪𝐮𝐨𝐭𝐞𝐥𝐲
 ║   🔄 Toaudio
+║   ✡️ removebg
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐆𝐑𝐎𝐔𝐏 𝐌𝐀𝐍𝐀𝐆𝐄𝐌𝐄𝐍𝐓  
 ╔════════════════════════╣
 ║   ✅ 𝐚𝐩𝐩𝐫𝐨𝐯𝐞
@@ -528,7 +529,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   📡 𝐜𝐡𝐞𝐜𝐤𝐧𝐮𝐦
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐀𝐈 𝐌𝐎𝐃𝐔𝐋𝐄𝐒         
 ╔════════════════════════╣
 ║   🗣 𝐀𝐢
@@ -540,7 +541,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   🔍 𝐠𝐨𝐨𝐠𝐥𝐞
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐎𝐖𝐍𝐄𝐑 𝐂𝐎𝐌𝐌𝐀𝐍𝐃𝐒 
 ╔════════════════════════╣
 ║   ⚙️ settings
@@ -553,14 +554,17 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   ☠ 𝐤𝐢𝐥𝐥𝟐
 ║   👑 𝐚𝐝𝐦𝐢𝐧
 ║   📢 𝐛𝐫𝐨𝐚𝐝𝐜𝐚𝐬𝐭
+║   📢 groupstatus
+║   📢 tostatus
 ║   🔄 𝐮𝐩𝐝𝐚𝐭𝐞 
 ║   🤖 𝐛𝐨𝐭𝐩𝐩
+║   ⛔ blocklist
 ║   ⛔ 𝐛𝐥𝐨𝐜𝐤
 ║   ☠ 𝐤𝐢𝐥𝐥
 ║   💾 𝐬𝐚𝐯𝐞
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐅𝐎𝐎𝐓𝐁𝐀𝐋𝐋 & 𝐒𝐏𝐎𝐑𝐓𝐒
 ╔════════════════════════╣
 ║    𝐞𝐩𝐥
@@ -578,7 +582,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║    𝐥𝐢𝐠𝐮𝐞1𝐬𝐜𝐨𝐫𝐞𝐫𝐬
 ╚═══════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐒𝐄𝐓𝐓𝐈𝐍𝐆𝐒 [𝐎𝐍/𝐎𝐅𝐅]
 ╔════════════════════════╣
 ║   autobio
@@ -600,13 +604,16 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   antitag 
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝐓𝐎𝐎𝐋𝐒 & 𝐔𝐓𝐈𝐋𝐈𝐓𝐈𝐄𝐒 
 ╔════════════════════════╣
 ║   💻 𝐜𝐚𝐫𝐛𝐨𝐧
 ║   🔒 𝐞𝐧𝐜𝐫𝐲𝐩𝐭
 ║   🌦 𝐰𝐞𝐚𝐭𝐡𝐞𝐫
 ║   📥 𝐠𝐢𝐭𝐜𝐥𝐨𝐧𝐞
+║   🔣 calc
+║   ↪️ getpp
+║   ↩️ pp
 ║   🔊 𝐭𝐭𝐬
 ║   🤖 𝐒𝐚𝐲
 ║   🧭 𝐓𝐫𝐭
@@ -617,7 +624,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   💘 𝐩𝐢𝐜𝐤𝐮𝐩𝐥𝐢𝐧𝐞
 ╚════════════════════════╣
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝗟𝗢𝗚𝗢 & 𝗧𝗘𝗫𝗧 𝗗𝗘𝗦𝗜𝗚𝗡
 ╔════════════════════════╣
 ║   💻 𝐡𝐚𝐜𝐤𝐞𝐫
@@ -647,7 +654,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   💡 𝐥𝐢𝐠𝐡𝐭
 ╚════════════════════════╝
 
- ═════════════════════════╗
+ ═════════════════════════
 > 𝗠𝗜𝗦𝗖𝗘𝗟𝗟𝗔𝗡𝗘𝗢𝗨𝗦
 ╔════════════════════════╣
 ║   📜 𝐛𝐢𝐛𝐥𝐞
@@ -1497,7 +1504,19 @@ if (!m.isGroup) return m.reply(group);
 
       } else if (qtype === 'audioMessage') {
         const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
-        payload.groupStatusMessage.audio = { url: filePath };
+        const opusPath = filePath + '_converted.ogg';
+        await new Promise((resolve, reject) => {
+          require('fluent-ffmpeg')(filePath)
+            .audioCodec('libopus')
+            .audioBitrate(128)
+            .toFormat('ogg')
+            .on('end', resolve)
+            .on('error', reject)
+            .save(opusPath);
+        });
+        try { fs.unlinkSync(filePath); } catch(e) {}
+        payload.groupStatusMessage.audio = { url: opusPath };
+        payload._opusCleanup = opusPath;
 
       } else if (qtype === 'documentMessage') {
         const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
@@ -1521,7 +1540,11 @@ if (!m.isGroup) return m.reply(group);
       payload.groupStatusMessage.text = text;
     }
 
+    const opusCleanup = payload._opusCleanup;
+    delete payload._opusCleanup;
+
     await client.sendMessage(m.chat, payload, { quoted: m });
+    if (opusCleanup) try { fs.unlinkSync(opusCleanup); } catch(e) {}
 
     m.reply("✅ Group status sent.");
 
@@ -1690,203 +1713,156 @@ break;
 //========================================================================================================================//
 case "blue":
 try {
-  const menu = `
-╔══════════════════════════════════════╗
-║     💙 *BLUEBLIZZARDS* 💙            
-║     Premium Services Hub             
-╠══════════════════════════════════════╣
-║ 🤖 *BOT SHOP*       kes100        
-║    ▸ Anti-ban • Auto-reply           
-║    └─ *.botservice*                  
-╠══════════════════════════════════════╣
-║ 🚀 *DEPLOYMENT*    BLACK-MD   
-║    ▸ 5-min setup • DDoS protection   
-║    └─ *.deployservice*               
-╠══════════════════════════════════════╣
-║ 📊 *TRADING*       Crypto/Forex      
-║    ▸ AI signals • 1:500 leverage     
-║    └─ *.tradingservice*              
-╠══════════════════════════════════════╣
-║ 🎬 *FREE FLIX*     10,000+ movies    
-║    ▸ HD/4K • Ad-free                 
-║    └─ *.flixservice*                 
-╠══════════════════════════════════════╣
-║ 💰 *AFFILIATE*     TRADING    
-║    └─ *.affiliateservice*            
-╠══════════════════════════════════════╣
-║ 📞 *SUPPORT*       24/7 Live chat    
-║    └─ *.supportservice*              
-╚══════════════════════════════════════╝
-⭐ 4.9/5 • 10k+ users • 🟢 All systems go
-💬 *Click a service command to access*`;
+  const menu =
+    '*💙 BLUEBLIZZARDS — Premium Services*\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+    '🤖 *BOT SHOP*\n' +
+    '▸ Anti-ban • Auto-reply • Multi-device\n' +
+    '▸ Basic: $19 | Pro: $49 | Ultimate: $99\n' +
+    '🔗 https://bot.blueblizzards.site\n\n' +
+    '🚀 *DEPLOYMENT*\n' +
+    '▸ 5-min setup • DDoS protection\n' +
+    '▸ Quick: $5.99/mo | Custom: $14.99/mo\n' +
+    '🔗 https://deploy.blueblizzards.site\n\n' +
+    '📊 *TRADING*\n' +
+    '▸ AI signals • 1:500 leverage • 0.1% fees\n' +
+    '▸ Crypto & Forex\n' +
+    '🔗 https://blueblizzards.site\n\n' +
+    '🎬 *FREE FLIX*\n' +
+    '▸ 10,000+ titles • HD/4K • Ad-free\n' +
+    '🔗 https://freeflix.blueblizzards.site\n\n' +
+    '💰 *AFFILIATE PROGRAM*\n' +
+    '▸ Earn 30% recurring commission\n' +
+    '▸ $5 per signup • Daily payouts\n' +
+    '🔗 https://blueblizzards.site/affiliate\n\n' +
+    '📞 *SUPPORT — 24/7*\n' +
+    '▸ Live chat: https://nexus.blueblizzards.site/support\n' +
+    '▸ Email: support@blueblizzards.site\n' +
+    '▸ Telegram: @BlueblizzardsSupport\n\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '⭐ 4.9/5 • 10k+ users • 🟢 All systems go';
 
-  await client.sendMessage(from, { text: menu }, { quoted: m });
+  await client.sendMessage(m.chat, { text: menu }, { quoted: m });
 } catch (error) {
-  reply(`❌ Error: ${error.message}`);
-  console.log(error);
+  reply(`Error: ${error.message}`);
 }
 break;
                           
 //========================================================================================================================//
 //========================================================================================================================//
-// SERVICE COMMANDS (links only shown here when user clicks)
-case "botservice":
-  await client.sendMessage(from, { 
-    text: `🤖 *Blueblizzards Bot Shop*\n\nPurchase WhatsApp bots:\n🔗 Access: https://bot.blueblizzards.site\n\nBasic: $19 | Pro: $49 | Ultimate: $99\n\n*.order <package>* to buy`,
-    quoted: m 
-  });
-  break;
-
-case "deployservice":
-  await client.sendMessage(from, { 
-    text: `🚀 *Blueblizzards Deployment Portal*\n\nDeploy your bot instantly:\n🔗 Access: https://deploy.blueblizzards.site\n\nQuick: $5.99/mo | Custom: $14.99/mo\n\n*.startdeploy* to begin`,
-    quoted: m 
-  });
-  break;
-
-case "tradingservice":
-  await client.sendMessage(from, { 
-    text: `📊 *Blueblizzards Trading Platform*\n\nTrade crypto & forex:\n🔗 Access: https://blueblizzards.site\n\nAI signals • 1:500 leverage • 0.1% fees\n\n*.opentrade* to start`,
-    quoted: m 
-  });
-  break;
-
-case "flixservice":
-  await client.sendMessage(from, { 
-    text: `🎬 *FreeFlix by Blueblizzards*\n\nWatch free movies & series:\n🔗 Access: https://freeflix.blueblizzards.site\n\n10,000+ titles • HD/4K • Ad-free\n\n*.search <movie>* to watch`,
-    quoted: m 
-  });
-  break;
-
-case "affiliateservice":
-  await client.sendMessage(from, { 
-    text: `💰 *Blueblizzards Affiliate Program*\n\nEarn 30% recurring commission:\n🔗 Register: https://blueblizzards.site/affiliate\n\n$5 per signup • Daily payouts\n\n*.myref* for your link`,
-    quoted: m 
-  });
-  break;
-
-case "supportservice":
-  await client.sendMessage(from, { 
-    text: `📞 *Blueblizzards 24/7 Support*\n\nLive chat: https://nexus.blueblizzards.site/support\nEmail: support@blueblizzards.site\nTelegram: @BlueblizzardsSupport\n\n*.ticket <issue>* for help`,
-    quoted: m 
-  });
-  break;
-                          
+                       
 //========================================================================================================================//
 //========================================================================================================================//    
 case "checknum":
 case "validate":
 try {
-  if (!text) return reply("📱 *Advanced Number Validator*\n\nUsage: .checknum 0712345678\n\n✅ Validates network & WhatsApp status\n👁️ Last seen status\n🖼️ Profile picture check");
+  if (!text) return reply("Usage: .checknum 0712345678\nFetches real WhatsApp status, about text and profile picture.");
 
   const phone = text.replace(/\D/g, '');
-  let provider = "";
-  let isValid = false;
+  if (!phone) return reply("Please provide a valid phone number.");
 
-  // Kenyan prefixes
-  if (phone.match(/^(07|01)/)) {
-    isValid = true;
-    if (phone.match(/^07(1|2|3|4|5|6|7|9)/)) provider = "📶 *Safaricom* (including M-Pesa)";
-    else if (phone.match(/^07(0|8)/)) provider = "📡 *Airtel Kenya*";
-    else if (phone.match(/^01(0|1)/)) provider = "🌐 *Telkom Kenya*";
-    else if (phone.match(/^079/)) provider = "📱 *Mobile Pay (M-Pesa ready)*";
-    else provider = "📞 *Other Kenyan Network*";
-  }
+  const digits = phone.startsWith('254') ? phone
+    : phone.startsWith('0') ? '254' + phone.slice(1)
+    : '254' + phone;
+  const jid = digits + '@s.whatsapp.net';
 
-  if (isValid) {
-    const formatted = phone.length === 9 ? "0" + phone : phone;
-    const international = "254" + phone.slice(-9);
-    
-    // Send initial checking message
-    await client.sendMessage(from, { text: `🔍 Analyzing +${international}...` }, { quoted: m });
-    
-    // Check WhatsApp status
-    let whatsappStatus = "❌ *No WhatsApp*";
-    let whatsappIcon = "📵";
-    let lastSeen = "N/A";
-    let hasProfilePic = false;
-    let about = "N/A";
-    let statusMessage = "N/A";
-    
-    try {
-      // Method 1: Check if number has WhatsApp via wa.me
-      const waCheck = await fetch(`https://wa.me/${international}`, {
-        method: 'HEAD',
-        redirect: 'manual',
-        timeout: 5000
-      });
-      
-      if (waCheck.status === 302 || waCheck.status === 200) {
-        whatsappStatus = "✅ *Has WhatsApp*";
-        whatsappIcon = "💚";
-        
-        // Simulate last seen status (real API would need WhatsApp Business API)
-        const lastSeenOptions = [
-          "Online now", "Recently", "Last seen today", "Last seen yesterday",
-          "Last seen this week", "Last seen 2 weeks ago", "Privacy setting: Only contacts",
-          "Last seen 1 hour ago", "Last seen 5 minutes ago", "Typing..."
-        ];
-        lastSeen = lastSeenOptions[Math.floor(Math.random() * lastSeenOptions.length)];
-        
-        // Simulate profile picture check
-        hasProfilePic = Math.random() > 0.3;
-        
-        // Simulate about/bio
-        const aboutOptions = [
-          "Available", "Busy", "At work", "Sleeping", "In a meeting",
-          "📱 Mobile user", "💼 Business account", "🎵 Music lover",
-          "🌍 Traveling", "💻 Working remotely"
-        ];
-        about = aboutOptions[Math.floor(Math.random() * aboutOptions.length)];
-        
-        // Simulate status (story)
-        const hasStatus = Math.random() > 0.6;
-        if (hasStatus) {
-          const statusOptions = [
-            "Posted 2h ago", "Posted yesterday", "Posted today", 
-            "Expires in 3h", "New status", "Multiple updates"
-          ];
-          statusMessage = statusOptions[Math.floor(Math.random() * statusOptions.length)];
-        }
-      }
-    } catch (err) {
-      whatsappStatus = "⚠️ *Unknown* (check failed)";
-      whatsappIcon = "❓";
-    }
-    
-    // Build detailed response with all features
-    const responseText = `┌─────❖ *NUMBER DETAILS* ❖─────┐
-│
-│ ${whatsappIcon} *WhatsApp:* ${whatsappStatus}
-│
-📱 *Phone Information*
-│ ├ 📞 Number: ${formatted}
-│ ├ 🌍 Intl: +${international}
-│ └ 🏢 Provider: ${provider}
+  const local = '0' + digits.slice(3);
+  let provider = 'Unknown / International';
+  if (local.match(/^07(1|2|3|4|5|6|7|9)/)) provider = 'Safaricom (M-Pesa eligible)';
+  else if (local.match(/^07(0|8)/)) provider = 'Airtel Kenya';
+  else if (local.match(/^01(0|1)/)) provider = 'Safaricom Kenya';
+  else if (local.match(/^07/)) provider = 'Kenyan number (unknown carrier)';
 
-💚 *WhatsApp Details*
-│ ├ 👁️ Last Seen: ${lastSeen}
-│ ├ 🖼️ Profile Pic: ${hasProfilePic ? "✅ Available" : "❌ Hidden/None"}
-│ ├ 📝 About/Bio: ${about}
-│ └ 📱 Status/Story: ${statusMessage}
+  m.reply('Checking +' + digits + '...');
 
-💰 *M-Pesa Status*
-│ └ ${phone.match(/^07(1|2|3|4|5|6|7|9)/) ? "✅ Registered for M-Pesa" : "⚠️ Not a Safaricom number"}
+  
+  let onWA = false;
+  try {
+    const [result] = await client.onWhatsApp(jid);
+    onWA = result?.exists === true;
+  } catch(e) {}
 
-└─────────────────────────────┘
+  
+  let about = 'Hidden / not set';
+  try {
+    const status = await client.fetchStatus(jid);
+    if (status?.status) about = status.status;
+  } catch(e) {}
 
-💡 *Quick Actions:*
-🔗 Chat: https://wa.me/${international}
-💬 .wa ${phone} - Generate chat link
-📸 .getpfp ${phone} - Try to get profile picture`;
 
-    await client.sendMessage(from, { text: responseText }, { quoted: m });
+  let ppStatus = 'None / hidden';
+  let ppUrl = null;
+  try {
+    ppUrl = await client.profilePictureUrl(jid, 'image');
+    if (ppUrl) ppStatus = 'Available';
+  } catch(e) {}
+
+  const replyText =
+    '*📱 Number Check Results*\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+    '📞 *Number:* ' + local + '\n' +
+    '🌍 *International:* +' + digits + '\n' +
+    '🏢 *Network:* ' + provider + '\n\n' +
+    '💬 *WhatsApp:* ' + (onWA ? '✅ Active on WhatsApp' : '❌ Not registered on WhatsApp') + '\n' +
+    '📝 *About/Bio:* ' + about + '\n' +
+    '🖼️ *Profile Pic:* ' + ppStatus + '\n\n' +
+    '🔗 https://wa.me/' + digits;
+
+  if (ppUrl) {
+    await client.sendMessage(m.chat, {
+      image: { url: ppUrl },
+      caption: replyText
+    }, { quoted: m });
   } else {
-    reply(`❌ *Invalid Number*\n\n"${phone}" is not a valid Kenyan number.\n\n✅ *Valid prefixes:* 07xx, 01xx\n📱 *Example:* 0712345678`);
+    await client.sendMessage(m.chat, { text: replyText }, { quoted: m });
   }
+
 } catch (error) {
-  reply(`❌ *Error:* ${error.message}\n\nPlease ensure number is correct and try again.`);
-  console.log(error);
+  reply('Error: ' + error.message);
+}
+break;
+
+//========================================================================================================================//
+case "getpfp":
+case "getpp":
+case "getdp":
+case "profilepic": {
+  try {
+    let jid;
+
+    if (m.quoted) {
+      jid = m.quoted.sender;
+    } else if (m.mentionedJid && m.mentionedJid[0]) {
+
+      jid = m.mentionedJid[0];
+    } else if (text) {
+    
+      const phone = text.replace(/\D/g, '');
+      const digits = phone.startsWith('254') ? phone
+        : phone.startsWith('0') ? '254' + phone.slice(1)
+        : '254' + phone;
+      jid = digits + '@s.whatsapp.net';
+    } else {
+      return m.reply('Usage:\n.getpfp @tag\n.getpfp 0712345678\nOr reply to someone\'s message');
+    }
+
+    let ppUrl;
+    try {
+      ppUrl = await client.profilePictureUrl(jid, 'image');
+    } catch(e) {
+      return m.reply('No profile picture found. It may be hidden or the number is not on WhatsApp.');
+    }
+
+    if (!ppUrl) return m.reply('No profile picture found. It may be hidden.');
+
+    await client.sendMessage(m.chat, {
+      image: { url: ppUrl },
+      caption: 'Profile picture of wa.me/' + jid.replace('@s.whatsapp.net', '').replace('@lid', '')
+    }, { quoted: m });
+
+  } catch (err) {
+    m.reply('Error: ' + err.message);
+  }
 }
 break;
                           
@@ -3154,7 +3130,36 @@ case "ai":
   break;        
 //========================================================================================================================//
   //========================================================================================================================//
-  
+  case "url": {
+ const fs = require("fs");
+const path = require('path');
+
+const util = require("util");
+
+let q = m.quoted ? m.quoted : m
+let mime = (q.msg || q).mimetype || ''
+
+if (!mime) return m.reply('Quote an image or video')
+
+let mediaBuffer = await q.download()
+
+  if (mediaBuffer.length > 10 * 1024 * 1024) return m.reply('Media is too large.')
+
+let isTele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime)
+
+if (isTele) {
+let fta2 = await client.downloadAndSaveMediaMessage(q)
+
+    let link = await uploadtoimgur(fta2)
+
+    const fileSizeMB = (mediaBuffer.length / (1024 * 1024)).toFixed(2)
+
+    m.reply(`Media Link:-\n\n${link}`)
+  } else {
+    m.reply(`Error occured...`)
+  }
+    }
+      break;
   //========================================================================================================================//
   //========================================================================================================================//
   //========================================================================================================================//                  
@@ -3392,8 +3397,6 @@ break;
                   // Shuffle and pick up to 5 random images
                   const shuffled = urls.sort(() => Math.random() - 0.5).slice(0, 5);
 
-
-                  // Download all images in parallel
                   const downloadResults = await Promise.all(
                     shuffled.map(url =>
                       axios.get(url, {
@@ -3407,7 +3410,7 @@ break;
 
                   if (!imageBuffers.length) return reply('❌ Could not download any images.');
 
-                  // Send all at once as a WhatsApp album
+                
                   const albumKey = `album_${Date.now()}`;
                   await Promise.all(
                     imageBuffers.map((buffer, i) =>
@@ -4012,7 +4015,28 @@ reply(resultt1.stderr);
       break;
 
 //========================================================================================================================//                  
+case 'calculate': case 'calc': {
+try {
+    if (!text) {
+      return m.reply("*Example usage:* .calculate 5+72");
+    }
 
+    // Validate the input to prevent unsafe operations
+    if (!/^[0-9+\-*/().\s]+$/.test(text)) {
+      return m.reply("Invalid format. Only numbers and +, -, *, /, ( ) are allowed.");
+    }
+
+    // Evaluate the mathematical expression
+    let result = eval(text);
+
+    // Reply with the result
+    m.reply(`${result}`);
+  } catch (e) {
+    console.error("Error in .calculate command:", e);
+    m.reply("Error in calculation. Please check your expression.");
+  }
+}
+break;
 
 //========================================================================================================================//                  
                       case "fullpp": {
@@ -4063,7 +4087,7 @@ m.reply("An error occured while updating profile photo\n" + error)
           break;
 
 //========================================================================================================================//                  
-            case "upload": case "url": {
+            case "upload": {
  const fs = require("fs");
 const path = require('path');
 
@@ -4309,7 +4333,32 @@ try {
               client.sendMessage(m.chat, { image: { url: 'https://files.catbox.moe/s5nuh3.jpg' }, caption:`*𝐁𝐎𝐓 𝐍𝐀𝐌𝐄: 𝐁𝐋𝐀𝐂𝐊𝐌𝐀𝐂𝐇𝐀𝐍𝐓 𝐁𝐎𝐓*\n\n*𝐒𝐏𝐄𝐄𝐃: ${Rspeed.toFixed(4)} 𝐌𝐒*\n\n*𝐑𝐔𝐍𝐓𝐈𝐌𝐄: ${runtime(process.uptime())}*\n\n*𝐏𝐋𝐀𝐓𝐅𝐎𝐑𝐌: 𝐇𝐄𝐑𝐎𝐊𝐔*\n\n*𝐇𝐎𝐒𝐓𝐍𝐀𝐌𝐄: 𝐁𝐋𝐀𝐂𝐊𝐈𝐄 *\n\n*𝐋𝐈𝐁𝐑𝐀𝐑𝐘: Baileys*\n\n𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄𝐑: 𝐁𝐋𝐀𝐂𝐊𝐈𝐄 𝐓𝐄𝐂𝐇`}); 
  break;
 
-//========================================================================================================================//                  
+//========================================================================================================================//  
+
+  case "removebg": {
+    try {
+      if (!m.quoted) return m.reply('Reply to an image to remove its background.');
+      if (!/image/.test(mime)) return m.reply('That is not an image. Quote an image and try again.');
+
+      m.reply('A moment, removing the background...');
+
+      const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
+      const uploaded = await uploadToUguu(filePath);
+      try { require('fs').unlinkSync(filePath); } catch(e) {}
+
+      const res = await axios.get(`${api}/ai/removebg?url=${encodeURIComponent(uploaded)}`);
+      if (!res.data || !res.data.result) return m.reply('Failed to remove background. Try again.');
+
+      await client.sendMessage(m.chat, {
+        image: { url: res.data.result },
+        caption: 'Edited by BLACK-MD'
+      }, { quoted: m });
+
+    } catch (err) {
+      m.reply('An error occurred: ' + err.message);
+    }
+  }
+  break;
 //========================================================================================================================//                  
 //========================================================================================================================//                  
    case "mail": {
@@ -4496,7 +4545,10 @@ if (users == "254114283550@s.whatsapp.net") return m.reply("It's an Owner Number
 
           if (users  == jidNormalizedUser(client.user.id)) return reply('I cannot remove Myself 😡');
 
-                      m.reply(`@${parts} Goodbye🤧`);
+             await client.sendMessage(m.chat, {
+            text: `@${parts}, Goodbye idiot🤧`,
+            contextInfo: { mentionedJid: [parts] }
+        }, { quoted: m });         
 
                  await client.groupParticipantsUpdate(m.chat, [users], 'remove'); 
  
@@ -5453,7 +5505,8 @@ const Buffer = await stickerResult.toBuffer();
 break;
 
 //========================================================================================================================//                  
-          case "dp": { 
+          case "dp": 
+          case "pp": { 
  try { 
  ha = m.quoted.sender; 
  qd = await client.getName(ha); 
@@ -5790,48 +5843,112 @@ if (!text) return m.reply("No emojis provided ? ")
 //========================================================================================================================//
 case "block": {
     if (!Owner) return m.reply(NotOwner);
-    if (!m.quoted && !m.mentionedJid[0] && !text) return reply(`𝗧𝗮𝗴 𝘀𝗼𝗺𝗲𝗼𝗻𝗲 𝗼𝗿 𝗿𝗲𝗽𝗹𝘆 𝘁𝗼 𝗮 𝗺𝗲𝘀𝘀𝗮𝗴𝗲!`);
+    if (!m.quoted) return m.reply('Reply to a message to block that user.');
 
-    // Raw JID — may be @lid in newer WhatsApp
-    let rawJid = m.mentionedJid[0]
-      ? m.mentionedJid[0]
-      : m.quoted
-        ? m.quoted.sender
-        : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+    try {
+      if (m.isGroup) {
+        // In groups, m.quoted.sender is the @lid of the quoted participant
+        const groupLid = m.quoted.sender;
+        const metadata = await client.groupMetadata(m.chat);
+        const participant = metadata.participants.find(p => p.id === groupLid);
 
-    // Resolve @lid → @s.whatsapp.net (required for updateBlockStatus)
-    let users = await resolveLid(rawJid, client, store);
-    users = standardizeJid(users) || rawJid;
+        if (!participant) {
+          return m.reply('Could not find that participant in this group.');
+        }
 
-    // Safety checks using standardized JIDs
-    const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
-    const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
-    if (standardizeJid(users) === ownerJid) return m.reply('𝗜 𝗰𝗮𝗻𝗻𝗼𝘁 𝗯𝗹𝗼𝗰𝗸 𝗺𝘆 𝗢𝘄𝗻𝗲𝗿 😡');
-    if (standardizeJid(users) === botJid)   return reply('𝗜 𝗰𝗮𝗻𝗻𝗼𝘁 𝗯𝗹𝗼𝗰𝗸 𝗺𝘆𝘀𝗲𝗹𝗳 𝗶𝗱𝗶𝗼𝘁 😡');
+        // phoneNumber holds the real @s.whatsapp.net JID on newer WhatsApp
+        const realJid = participantP.phoneNumber || participant.id;
 
-    await client.updateBlockStatus(users, 'block');
-    m.reply(`𝗕𝗹𝗼𝗰𝗸𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆!`);
+        // Safety checks
+        const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
+        const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
+        if (standardizeJid(realJid) === ownerJid) return m.reply('I cannot block my Owner 😡');
+        if (standardizeJid(realJid) === botJid)   return m.reply('I cannot block myself 😡');
+
+        // Pass lid + real jid so Baileys resolves correctly
+        await client.updateBlockStatus(groupLid, realJid, 'block');
+
+      } else {
+        // In DMs, m.quoted.sender is the other person's JID
+        const dmJid = m.quoted.sender;
+        // m.chat may itself be a @lid conversation JID on newer WA
+        const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
+
+        const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
+        const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
+        if (standardizeJid(dmJid) === ownerJid) return m.reply('I cannot block my Owner 😡');
+        if (standardizeJid(dmJid) === botJid)   return m.reply('I cannot block myself 😡');
+
+        if (dmLid) {
+          await client.updateBlockStatus(dmLid, dmJid, 'block');
+        } else {
+          await client.updateBlockStatus(dmJid, 'block');
+        }
+      }
+
+      m.reply('✅ Blocked successfully!');
+
+    } catch (err) {
+      m.reply('❌ Error: ' + err.message);
+    }
   }
-  break; 
-
+  break;
 //========================================================================================================================//                  
  case "unblock": {
     if (!Owner) return m.reply(NotOwner);
-    if (!m.quoted && !m.mentionedJid[0] && !text) return reply(`𝗧𝗮𝗴 𝘀𝗼𝗺𝗲𝗼𝗻𝗲 𝗼𝗿 𝗿𝗲𝗽𝗹𝘆 𝘁𝗼 𝗮 𝗺𝗲𝘀𝘀𝗮𝗴𝗲!`);
+    if (!m.quoted) return m.reply('Reply to a message to unblock that user.');
 
-    // Raw JID — may be @lid in newer WhatsApp
-    let rawJid = m.mentionedJid[0]
-      ? m.mentionedJid[0]
-      : m.quoted
-        ? m.quoted.sender
-        : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+    try {
+      if (m.isGroup) {
+        const groupLid = m.quoted.sender;
+        const metadata = await client.groupMetadata(m.chat);
+        const participant = metadata.participants.find(p => p.id === groupLid);
 
-    // Resolve @lid → @s.whatsapp.net (required for updateBlockStatus)
-    let users = await resolveLid(rawJid, client, store);
-    users = standardizeJid(users) || rawJid;
+        if (!participant) return m.reply('Could not find that participant in this group.');
 
-    await client.updateBlockStatus(users, 'unblock');
-    m.reply(`𝗨𝗻𝗯𝗹𝗼𝗰𝗸𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆✅!`);
+        const realJid = participant.phoneNumber || participant.id;
+        await client.updateBlockStatus(groupLid, realJid, 'unblock');
+
+      } else {
+        const dmJid = m.quoted.sender;
+        const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
+
+        if (dmLid) {
+          await client.updateBlockStatus(dmLid, dmJid, 'unblock');
+        } else {
+          await client.updateBlockStatus(dmJid, 'unblock');
+        }
+      }
+
+      m.reply('✅ Unblocked successfully!');
+
+    } catch (err) {
+      m.reply('❌ Error: ' + err.message);
+    }
+  }
+  break;
+
+//========================================================================================================================//
+  case "blocklist": {
+    if (!Owner) return m.reply(NotOwner);
+    try {
+      m.reply('Fetching your blocked contacts...');
+      const blocked = await client.fetchBlocklist();
+
+      if (!blocked || blocked.length === 0) {
+        return m.reply('You have no blocked contacts.');
+      }
+
+      let list = '*Blocked Contacts (' + blocked.length + ')*\n\n';
+      blocked.forEach((jid, i) => {
+        const num = jid.replace(/@.+/, '');
+        list += (i + 1) + '. +' + num + '\n';
+      });
+
+      m.reply(list.trim());
+    } catch (err) {
+      m.reply('Error fetching blocklist: ' + err.message);
+    }
   }
   break;
 
