@@ -612,6 +612,8 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   🌦 𝐰𝐞𝐚𝐭𝐡𝐞𝐫
 ║   📥 𝐠𝐢𝐭𝐜𝐥𝐨𝐧𝐞
 ║   🔣 calc
+║   ↪️ getpp
+║   ↩️ pp
 ║   🔊 𝐭𝐭𝐬
 ║   🤖 𝐒𝐚𝐲
 ║   🧭 𝐓𝐫𝐭
@@ -1768,26 +1770,26 @@ try {
   let provider = 'Unknown / International';
   if (local.match(/^07(1|2|3|4|5|6|7|9)/)) provider = 'Safaricom (M-Pesa eligible)';
   else if (local.match(/^07(0|8)/)) provider = 'Airtel Kenya';
-  else if (local.match(/^01(0|1)/)) provider = 'Telkom Kenya';
+  else if (local.match(/^01(0|1)/)) provider = 'Safaricom Kenya';
   else if (local.match(/^07/)) provider = 'Kenyan number (unknown carrier)';
 
   m.reply('Checking +' + digits + '...');
 
-  // Real WhatsApp check
+  
   let onWA = false;
   try {
     const [result] = await client.onWhatsApp(jid);
     onWA = result?.exists === true;
   } catch(e) {}
 
-  // Real about/bio
+  
   let about = 'Hidden / not set';
   try {
     const status = await client.fetchStatus(jid);
     if (status?.status) about = status.status;
   } catch(e) {}
 
-  // Real profile picture
+
   let ppStatus = 'None / hidden';
   let ppUrl = null;
   try {
@@ -1822,18 +1824,19 @@ break;
 
 //========================================================================================================================//
 case "getpfp":
+case "getpp":
+case "getdp":
 case "profilepic": {
   try {
     let jid;
 
     if (m.quoted) {
-      // Reply to a message — use that person's JID
       jid = m.quoted.sender;
     } else if (m.mentionedJid && m.mentionedJid[0]) {
-      // Tagged someone
+
       jid = m.mentionedJid[0];
     } else if (text) {
-      // Number typed manually
+    
       const phone = text.replace(/\D/g, '');
       const digits = phone.startsWith('254') ? phone
         : phone.startsWith('0') ? '254' + phone.slice(1)
@@ -3127,7 +3130,36 @@ case "ai":
   break;        
 //========================================================================================================================//
   //========================================================================================================================//
-  
+  case "url": {
+ const fs = require("fs");
+const path = require('path');
+
+const util = require("util");
+
+let q = m.quoted ? m.quoted : m
+let mime = (q.msg || q).mimetype || ''
+
+if (!mime) return m.reply('Quote an image or video')
+
+let mediaBuffer = await q.download()
+
+  if (mediaBuffer.length > 10 * 1024 * 1024) return m.reply('Media is too large.')
+
+let isTele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime)
+
+if (isTele) {
+let fta2 = await client.downloadAndSaveMediaMessage(q)
+
+    let link = await uploadtoimgur(fta2)
+
+    const fileSizeMB = (mediaBuffer.length / (1024 * 1024)).toFixed(2)
+
+    m.reply(`Media Link:-\n\n${link}`)
+  } else {
+    m.reply(`Error occured...`)
+  }
+    }
+      break;
   //========================================================================================================================//
   //========================================================================================================================//
   //========================================================================================================================//                  
@@ -4055,7 +4087,7 @@ m.reply("An error occured while updating profile photo\n" + error)
           break;
 
 //========================================================================================================================//                  
-            case "upload": case "url": {
+            case "upload": {
  const fs = require("fs");
 const path = require('path');
 
@@ -5473,7 +5505,8 @@ const Buffer = await stickerResult.toBuffer();
 break;
 
 //========================================================================================================================//                  
-          case "dp": { 
+          case "dp": 
+          case "pp": { 
  try { 
  ha = m.quoted.sender; 
  qd = await client.getName(ha); 
