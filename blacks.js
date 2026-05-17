@@ -1754,116 +1754,62 @@ break;
 case "checknum":
 case "validate":
 try {
-  if (!text) return reply("📱 *Advanced Number Validator*\n\nUsage: .checknum 0712345678\n\n✅ Validates network & WhatsApp status\n👁️ Last seen status\n🖼️ Profile picture check");
+  if (!text) return reply("Usage: .checknum 0712345678\nFetches real WhatsApp status, about text and profile picture.");
 
   const phone = text.replace(/\D/g, '');
-  let provider = "";
-  let isValid = false;
+  if (!phone) return reply("Please provide a valid phone number.");
 
-  // Kenyan prefixes
-  if (phone.match(/^(07|01)/)) {
-    isValid = true;
-    if (phone.match(/^07(1|2|3|4|5|6|7|9)/)) provider = "📶 *Safaricom* (including M-Pesa)";
-    else if (phone.match(/^07(0|8)/)) provider = "📡 *Airtel Kenya*";
-    else if (phone.match(/^01(0|1)/)) provider = "🌐 *Telkom Kenya*";
-    else if (phone.match(/^079/)) provider = "📱 *Mobile Pay (M-Pesa ready)*";
-    else provider = "📞 *Other Kenyan Network*";
-  }
+  const digits = phone.startsWith('254') ? phone
+    : phone.startsWith('0') ? '254' + phone.slice(1)
+    : '254' + phone;
+  const jid = digits + '@s.whatsapp.net';
 
-  if (isValid) {
-    const formatted = phone.length === 9 ? "0" + phone : phone;
-    const international = "254" + phone.slice(-9);
-    
-    // Send initial checking message
-    await client.sendMessage(from, { text: `🔍 Analyzing +${international}...` }, { quoted: m });
-    
-    // Check WhatsApp status
-    let whatsappStatus = "❌ *No WhatsApp*";
-    let whatsappIcon = "📵";
-    let lastSeen = "N/A";
-    let hasProfilePic = false;
-    let about = "N/A";
-    let statusMessage = "N/A";
-    
-    try {
-      // Method 1: Check if number has WhatsApp via wa.me
-      const waCheck = await fetch(`https://wa.me/${international}`, {
-        method: 'HEAD',
-        redirect: 'manual',
-        timeout: 5000
-      });
-      
-      if (waCheck.status === 302 || waCheck.status === 200) {
-        whatsappStatus = "✅ *Has WhatsApp*";
-        whatsappIcon = "💚";
-        
-        // Simulate last seen status (real API would need WhatsApp Business API)
-        const lastSeenOptions = [
-          "Online now", "Recently", "Last seen today", "Last seen yesterday",
-          "Last seen this week", "Last seen 2 weeks ago", "Privacy setting: Only contacts",
-          "Last seen 1 hour ago", "Last seen 5 minutes ago", "Typing..."
-        ];
-        lastSeen = lastSeenOptions[Math.floor(Math.random() * lastSeenOptions.length)];
-        
-        // Simulate profile picture check
-        hasProfilePic = Math.random() > 0.3;
-        
-        // Simulate about/bio
-        const aboutOptions = [
-          "Available", "Busy", "At work", "Sleeping", "In a meeting",
-          "📱 Mobile user", "💼 Business account", "🎵 Music lover",
-          "🌍 Traveling", "💻 Working remotely"
-        ];
-        about = aboutOptions[Math.floor(Math.random() * aboutOptions.length)];
-        
-        // Simulate status (story)
-        const hasStatus = Math.random() > 0.6;
-        if (hasStatus) {
-          const statusOptions = [
-            "Posted 2h ago", "Posted yesterday", "Posted today", 
-            "Expires in 3h", "New status", "Multiple updates"
-          ];
-          statusMessage = statusOptions[Math.floor(Math.random() * statusOptions.length)];
-        }
-      }
-    } catch (err) {
-      whatsappStatus = "⚠️ *Unknown* (check failed)";
-      whatsappIcon = "❓";
-    }
-    
-    // Build detailed response with all features
-    const responseText = `┌─────❖ *NUMBER DETAILS* ❖─────┐
-│
-│ ${whatsappIcon} *WhatsApp:* ${whatsappStatus}
-│
-📱 *Phone Information*
-│ ├ 📞 Number: ${formatted}
-│ ├ 🌍 Intl: +${international}
-│ └ 🏢 Provider: ${provider}
+  const local = '0' + digits.slice(3);
+  let provider = 'Unknown / International';
+  if (local.match(/^07(1|2|3|4|5|6|7|9)/)) provider = 'Safaricom (M-Pesa eligible)';
+  else if (local.match(/^07(0|8)/)) provider = 'Airtel Kenya';
+  else if (local.match(/^01(0|1)/)) provider = 'Telkom Kenya';
+  else if (local.match(/^07/)) provider = 'Kenyan number (unknown carrier)';
 
-💚 *WhatsApp Details*
-│ ├ 👁️ Last Seen: ${lastSeen}
-│ ├ 🖼️ Profile Pic: ${hasProfilePic ? "✅ Available" : "❌ Hidden/None"}
-│ ├ 📝 About/Bio: ${about}
-│ └ 📱 Status/Story: ${statusMessage}
+  m.reply('Checking +' + digits + '...');
 
-💰 *M-Pesa Status*
-│ └ ${phone.match(/^07(1|2|3|4|5|6|7|9)/) ? "✅ Registered for M-Pesa" : "⚠️ Not a Safaricom number"}
+  let onWA = false;
+  try {
+    const [result] = await client.onWhatsApp(jid);
+    onWA = result?.exists === true;
+  } catch(e) {}
 
-└─────────────────────────────┘
+  let about = 'Hidden / not set';
+  try {
+    const status = await client.fetchStatus(jid);
+    if (status?.status) about = status.status;
+  } catch(e) {}
 
-💡 *Quick Actions:*
-🔗 Chat: https://wa.me/${international}
-💬 .wa ${phone} - Generate chat link
-📸 .getpfp ${phone} - Try to get profile picture`;
+  let ppStatus = 'None / hidden';
+  let ppUrl = null;
+  try {
+    ppUrl = await client.profilePictureUrl(jid, 'image');
+    if (ppUrl) ppStatus = 'Available';
+  } catch(e) {}
 
-    await client.sendMessage(from, { text: responseText }, { quoted: m });
+  const replyText =
+    '*Number Check Results*\n' +
+    'Number: ' + local + '\n' +
+    'International: +' + digits + '\n' +
+    'Network: ' + provider + '\n\n' +
+    'WhatsApp: ' + (onWA ? 'Active' : 'Not registered') + '\n' +
+    'About/Bio: ' + about + '\n' +
+    'Profile Pic: ' + ppStatus + '\n\n' +
+    'https://wa.me/' + digits;
+
+  if (ppUrl) {
+    await client.sendMessage(m.chat, { image: { url: ppUrl }, caption: replyText }, { quoted: m });
   } else {
-    reply(`❌ *Invalid Number*\n\n"${phone}" is not a valid Kenyan number.\n\n✅ *Valid prefixes:* 07xx, 01xx\n📱 *Example:* 0712345678`);
+    await client.sendMessage(m.chat, { text: replyText }, { quoted: m });
   }
+
 } catch (error) {
-  reply(`❌ *Error:* ${error.message}\n\nPlease ensure number is correct and try again.`);
-  console.log(error);
+  reply('Error: ' + error.message);
 }
 break;
                           
