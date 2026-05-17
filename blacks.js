@@ -1750,49 +1750,7 @@ break;
                           
 //========================================================================================================================//
 //========================================================================================================================//
-// SERVICE COMMANDS (links only shown here when user clicks)
-case "botservice":
-  await client.sendMessage(from, { 
-    text: `🤖 *Blueblizzards Bot Shop*\n\nPurchase WhatsApp bots:\n🔗 Access: https://bot.blueblizzards.site\n\nBasic: $19 | Pro: $49 | Ultimate: $99\n\n*.order <package>* to buy`,
-    quoted: m 
-  });
-  break;
-
-case "deployservice":
-  await client.sendMessage(from, { 
-    text: `🚀 *Blueblizzards Deployment Portal*\n\nDeploy your bot instantly:\n🔗 Access: https://deploy.blueblizzards.site\n\nQuick: $5.99/mo | Custom: $14.99/mo\n\n*.startdeploy* to begin`,
-    quoted: m 
-  });
-  break;
-
-case "tradingservice":
-  await client.sendMessage(from, { 
-    text: `📊 *Blueblizzards Trading Platform*\n\nTrade crypto & forex:\n🔗 Access: https://blueblizzards.site\n\nAI signals • 1:500 leverage • 0.1% fees\n\n*.opentrade* to start`,
-    quoted: m 
-  });
-  break;
-
-case "flixservice":
-  await client.sendMessage(from, { 
-    text: `🎬 *FreeFlix by Blueblizzards*\n\nWatch free movies & series:\n🔗 Access: https://freeflix.blueblizzards.site\n\n10,000+ titles • HD/4K • Ad-free\n\n*.search <movie>* to watch`,
-    quoted: m 
-  });
-  break;
-
-case "affiliateservice":
-  await client.sendMessage(from, { 
-    text: `💰 *Blueblizzards Affiliate Program*\n\nEarn 30% recurring commission:\n🔗 Register: https://blueblizzards.site/affiliate\n\n$5 per signup • Daily payouts\n\n*.myref* for your link`,
-    quoted: m 
-  });
-  break;
-
-case "supportservice":
-  await client.sendMessage(from, { 
-    text: `📞 *Blueblizzards 24/7 Support*\n\nLive chat: https://nexus.blueblizzards.site/support\nEmail: support@blueblizzards.site\nTelegram: @BlueblizzardsSupport\n\n*.ticket <issue>* for help`,
-    quoted: m 
-  });
-  break;
-                          
+                       
 //========================================================================================================================//
 //========================================================================================================================//    
 case "checknum":
@@ -4367,7 +4325,7 @@ try {
 
       await client.sendMessage(m.chat, {
         image: { url: res.data.result },
-        caption: 'Edited by RAVEN-BOT'
+        caption: 'Edited by BLACK-MD'
       }, { quoted: m });
 
     } catch (err) {
@@ -5865,14 +5823,14 @@ case "block": {
         // In groups, m.quoted.sender is the @lid of the quoted participant
         const groupLid = m.quoted.sender;
         const metadata = await client.groupMetadata(m.chat);
-        const participant = metadata.participants.find(p => p.pn === groupLid);
+        const participant = metadata.participants.find(p => p.id === groupLid);
 
         if (!participant) {
           return m.reply('Could not find that participant in this group.');
         }
 
         // phoneNumber holds the real @s.whatsapp.net JID on newer WhatsApp
-        const realJid = participant.phoneNumber || participant.pn;
+        const realJid = participantP.phoneNumber || participant.id;
 
         // Safety checks
         const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
@@ -5887,7 +5845,7 @@ case "block": {
         // In DMs, m.quoted.sender is the other person's JID
         const dmJid = m.quoted.sender;
         // m.chat may itself be a @lid conversation JID on newer WA
-        const dmLid = m.chat.endsWith('@s.whatsapp.net') ? m.chat : null;
+        const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
 
         const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
         const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
