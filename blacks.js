@@ -4352,27 +4352,29 @@ try {
 //========================================================================================================================//  
 
   case "removebg": {
-try {
+    try {
+      if (!m.quoted) return m.reply('Reply to an image to remove its background.');
+      if (!/image/.test(mime)) return m.reply('That is not an image. Quote an image and try again.');
 
-const cap = "𝗘𝗱𝗶𝘁𝗲𝗱 𝗯𝘆 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧";
-if (!m.quoted) return m.reply("Send the image then tag it with the command.");
-if (!/image/.test(mime)) return m.reply("That is not an image, try again while quoting an actual image.");             
+      m.reply('A moment, removing the background...');
 
-let fdr = await client.downloadAndSaveMediaMessage(m.quoted)
-let fta = await uploadToCatbox(fdr)
-                    m.reply("𝗔 𝗺𝗼𝗺𝗲𝗻𝘁, 𝗥𝗮𝘃𝗲𝗻 𝗶𝘀 𝗲𝗿𝗮𝘀𝗶𝗻𝗴 𝘁𝗵𝗲 𝗯𝗮𝗰𝗸𝗴𝗿𝗼𝘂𝗻𝗱. . .");
+      const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
+      const uploaded = await uploadToCatbox(filePath);
+      try { require('fs').unlinkSync(filePath); } catch(e) {}
 
-const image = `https://api.dreaded.site/api/removebg?imageurl=${fta}`
-await client.sendMessage(m.chat, { image: { url: image }, caption: cap}, {quoted: m });
+      const res = await axios.get(`${api}/ai/removebg?url=${encodeURIComponent(uploaded)}`);
+      if (!res.data || !res.data.result) return m.reply('Failed to remove background. Try again.');
 
-} catch (error) {
-m.reply("An error occured...")
+      await client.sendMessage(m.chat, {
+        image: { url: res.data.result },
+        caption: 'Edited by RAVEN-BOT'
+      }, { quoted: m });
 
-}
-
-      }
-	break;
-  
+    } catch (err) {
+      m.reply('An error occurred: ' + err.message);
+    }
+  }
+  break;
 //========================================================================================================================//                  
 //========================================================================================================================//                  
    case "mail": {
