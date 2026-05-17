@@ -5806,30 +5806,56 @@ if (!text) return m.reply("No emojis provided ? ")
 //========================================================================================================================//
 case "block": {
     if (!Owner) return m.reply(NotOwner);
-    if (!m.quoted && !m.mentionedJid[0] && !text) return reply(`𝗧𝗮𝗴 𝘀𝗼𝗺𝗲𝗼𝗻𝗲 𝗼𝗿 𝗿𝗲𝗽𝗹𝘆 𝘁𝗼 𝗮 𝗺𝗲𝘀𝘀𝗮𝗴𝗲!`);
+    if (!m.quoted) return m.reply('Reply to a message to block that user.');
 
-    // Raw JID — may be @lid in newer WhatsApp
-    let rawJid = m.mentionedJid[0]
-      ? m.mentionedJid[0]
-      : m.quoted
-        ? m.quoted.sender
-        : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+    try {
+      if (m.isGroup) {
+        // In groups, m.quoted.sender is the @lid of the quoted participant
+        const groupLid = m.quoted.sender;
+        const metadata = await client.groupMetadata(m.chat);
+        const participant = metadata.participants.find(p => p.id === groupLid);
 
-    // Resolve @lid → @s.whatsapp.net (required for updateBlockStatus)
-    let users = await resolveLid(rawJid, client, store);
-    users = standardizeJid(users) || rawJid;
+        if (!participant) {
+          return m.reply('Could not find that participant in this group.');
+        }
 
-    // Safety checks using standardized JIDs
-    const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
-    const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
-    if (standardizeJid(users) === ownerJid) return m.reply('𝗜 𝗰𝗮𝗻𝗻𝗼𝘁 𝗯𝗹𝗼𝗰𝗸 𝗺𝘆 𝗢𝘄𝗻𝗲𝗿 😡');
-    if (standardizeJid(users) === botJid)   return reply('𝗜 𝗰𝗮𝗻𝗻𝗼𝘁 𝗯𝗹𝗼𝗰𝗸 𝗺𝘆𝘀𝗲𝗹𝗳 𝗶𝗱𝗶𝗼𝘁 😡');
+        // phoneNumber holds the real @s.whatsapp.net JID on newer WhatsApp
+        const realJid = participant.phoneNumber || participant.id;
 
-    await client.updateBlockStatus(users, 'block');
-    m.reply(`𝗕𝗹𝗼𝗰𝗸𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆!`);
+        // Safety checks
+        const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
+        const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
+        if (standardizeJid(realJid) === ownerJid) return m.reply('I cannot block my Owner 😡');
+        if (standardizeJid(realJid) === botJid)   return m.reply('I cannot block myself 😡');
+
+        // Pass lid + real jid so Baileys resolves correctly
+        await client.updateBlockStatus(groupLid, realJid, 'block');
+
+      } else {
+        // In DMs, m.quoted.sender is the other person's JID
+        const dmJid = m.quoted.sender;
+        // m.chat may itself be a @lid conversation JID on newer WA
+        const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
+
+        const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
+        const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
+        if (standardizeJid(dmJid) === ownerJid) return m.reply('I cannot block my Owner 😡');
+        if (standardizeJid(dmJid) === botJid)   return m.reply('I cannot block myself 😡');
+
+        if (dmLid) {
+          await client.updateBlockStatus(dmLid, dmJid, 'block');
+        } else {
+          await client.updateBlockStatus(dmJid, 'block');
+        }
+      }
+
+      m.reply('✅ Blocked successfully!');
+
+    } catch (err) {
+      m.reply('❌ Error: ' + err.message);
+    }
   }
-  break; 
-
+  break;
 //========================================================================================================================//                  
  case "unblock": {
     if (!Owner) return m.reply(NotOwner);
