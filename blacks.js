@@ -4359,7 +4359,7 @@ try {
       m.reply('A moment, removing the background...');
 
       const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
-      const uploaded = await uploadToCatbox(filePath);
+      const uploaded = await uploadToUguu(filePath);
       try { require('fs').unlinkSync(filePath); } catch(e) {}
 
       const res = await axios.get(`${api}/ai/removebg?url=${encodeURIComponent(uploaded)}`);
@@ -5911,21 +5911,63 @@ case "block": {
 //========================================================================================================================//                  
  case "unblock": {
     if (!Owner) return m.reply(NotOwner);
-    if (!m.quoted && !m.mentionedJid[0] && !text) return reply(`𝗧𝗮𝗴 𝘀𝗼𝗺𝗲𝗼𝗻𝗲 𝗼𝗿 𝗿𝗲𝗽𝗹𝘆 𝘁𝗼 𝗮 𝗺𝗲𝘀𝘀𝗮𝗴𝗲!`);
+    if (!m.quoted) return m.reply('Reply to a message to unblock that user.');
 
-    // Raw JID — may be @lid in newer WhatsApp
-    let rawJid = m.mentionedJid[0]
-      ? m.mentionedJid[0]
-      : m.quoted
-        ? m.quoted.sender
-        : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+    try {
+      if (m.isGroup) {
+        const groupLid = m.quoted.sender;
+        const metadata = await client.groupMetadata(m.chat);
+        const participant = metadata.participants.find(p => p.id === groupLid);
 
-    // Resolve @lid → @s.whatsapp.net (required for updateBlockStatus)
-    let users = await resolveLid(rawJid, client, store);
-    users = standardizeJid(users) || rawJid;
+        if (!participant) return m.reply('Could not find that participant in this group.');
 
-    await client.updateBlockStatus(users, 'unblock');
-    m.reply(`𝗨𝗻𝗯𝗹𝗼𝗰𝗸𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹𝗹𝘆✅!`);
+        const realJid = participant.phoneNumber || participant.id;
+        await client.updateBlockStatus(groupLid, realJid, 'unblock');
+
+      } else {
+        const dmJid = m.quoted.sender;
+        const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
+
+        if (dmLid) {
+          await client.updateBlockStatus(dmLid, dmJid, 'unblock');
+        } else {
+          await client.updateBlockStatus(dmJid, 'unblock');
+        }
+      }
+
+      m.reply('✅ Unblocked successfully!');
+
+    } catch (err) {
+      m.reply('❌ Error: ' + err.message);
+    }
+  }
+  break;
+
+//========================================================================================================================//
+  case "blocklist": {
+    if (!Owner) return m.reply(NotOwner);
+    try {
+      m.reply('Fetching your blocked contacts...');
+      const blocked = await client.fetchBlockedContacts();
+
+      if (!blocked || blocked.length === 0) {
+        return m.reply('✅ You have no blocked contacts.');
+      }
+
+      let list = '*🚫 Blocked Contacts (' + blocked.length + ')*
+
+';
+      blocked.forEach((jid, i) => {
+        // jid may be @lid or @s.whatsapp.net — extract number if possible
+        const num = jid.replace(/@.+/, '');
+        list += (i + 1) + '. +' + num + '
+';
+      });
+
+      m.reply(list.trim());
+    } catch (err) {
+      m.reply('❌ Error fetching blocklist: ' + err.message);
+    }
   }
   break;
 
