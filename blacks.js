@@ -1497,7 +1497,19 @@ if (!m.isGroup) return m.reply(group);
 
       } else if (qtype === 'audioMessage') {
         const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
-        payload.groupStatusMessage.audio = { url: filePath };
+        const opusPath = filePath + '_converted.ogg';
+        await new Promise((resolve, reject) => {
+          require('fluent-ffmpeg')(filePath)
+            .audioCodec('libopus')
+            .audioBitrate(128)
+            .toFormat('ogg')
+            .on('end', resolve)
+            .on('error', reject)
+            .save(opusPath);
+        });
+        try { fs.unlinkSync(filePath); } catch(e) {}
+        payload.groupStatusMessage.audio = { url: opusPath };
+        payload._opusCleanup = opusPath;
 
       } else if (qtype === 'documentMessage') {
         const filePath = await client.downloadAndSaveMediaMessage(m.quoted);
@@ -1521,7 +1533,11 @@ if (!m.isGroup) return m.reply(group);
       payload.groupStatusMessage.text = text;
     }
 
+    const opusCleanup = payload._opusCleanup;
+    delete payload._opusCleanup;
+
     await client.sendMessage(m.chat, payload, { quoted: m });
+    if (opusCleanup) try { fs.unlinkSync(opusCleanup); } catch(e) {}
 
     m.reply("✅ Group status sent.");
 
