@@ -5948,25 +5948,21 @@ case "block": {
     if (!Owner) return m.reply(NotOwner);
     try {
       m.reply('Fetching your blocked contacts...');
-      const blocked = await client.fetchBlockedContacts();
+      const blocked = await client.fetchBlocklist();
 
       if (!blocked || blocked.length === 0) {
-        return m.reply('✅ You have no blocked contacts.');
+        return m.reply('You have no blocked contacts.');
       }
 
-      let list = '*🚫 Blocked Contacts (' + blocked.length + ')*
-
-';
+      let list = '*Blocked Contacts (' + blocked.length + ')*\n\n';
       blocked.forEach((jid, i) => {
-        // jid may be @lid or @s.whatsapp.net — extract number if possible
         const num = jid.replace(/@.+/, '');
-        list += (i + 1) + '. +' + num + '
-';
+        list += (i + 1) + '. +' + num + '\n';
       });
 
       m.reply(list.trim());
     } catch (err) {
-      m.reply('❌ Error fetching blocklist: ' + err.message);
+      m.reply('Error fetching blocklist: ' + err.message);
     }
   }
   break;
