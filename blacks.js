@@ -6098,13 +6098,11 @@ case "sendstatus": {
       (jid.endsWith("@s.whatsapp.net") || jid.endsWith("@lid"))
     );
   } catch(e) {
-    return m.reply("❌ Could not load jids.json.
-Make sure jids.json exists in the bot root with an array of contact JIDs.");
+    return m.reply("❌ Could not load jids.json.\nMake sure jids.json exists in the bot root with an array of contact JIDs.");
   }
 
   if (statusJidList.length === 0) {
-    return m.reply("❌ No valid JIDs in jids.json.
-Add contacts like: ['254712345678@s.whatsapp.net']");
+    return m.reply("❌ No valid JIDs in jids.json.\nAdd contacts like: [\"254712345678@s.whatsapp.net\"]");
   }
 
   try {
