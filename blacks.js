@@ -527,6 +527,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   👻 𝐡𝐢𝐝𝐞𝐭𝐚𝐠
 ║   🔇 𝐦𝐮𝐭𝐞
 ║   📡 𝐜𝐡𝐞𝐜𝐤𝐧𝐮𝐦
+║   📡 validate
 ╚════════════════════════╝
 
  ═════════════════════════
@@ -555,7 +556,6 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   👑 𝐚𝐝𝐦𝐢𝐧
 ║   📢 𝐛𝐫𝐨𝐚𝐝𝐜𝐚𝐬𝐭
 ║   📢 groupstatus
-║   📢 tostatus
 ║   🔄 𝐮𝐩𝐝𝐚𝐭𝐞 
 ║   🤖 𝐛𝐨𝐭𝐩𝐩
 ║   ⛔ blocklist
@@ -1712,6 +1712,7 @@ break;
 //========================================================================================================================//                      
 //========================================================================================================================//
 case "blue":
+case "blizzard":
 try {
   const menu =
     '*💙 BLUEBLIZZARDS — Premium Services*\n' +
@@ -1756,11 +1757,10 @@ break;
 case "checknum":
 case "validate":
 try {
-  if (!text) return reply("Usage: .validate +254712345678\nProvide the full number with country code (e.g. +1 for US, +44 for UK, +254 for Kenya).");
+  if (!text) return reply("Usage: validate +254712345678\nProvide the full number with country code (e.g. +1 for US, +44 for UK, +254 for Kenya).");
 
-  // Strip spaces, dashes, parentheses — keep digits and leading +
   const cleaned = text.trim().replace(/[\s\-().]/g, '');
-  const digits = cleaned.replace(/^\+/, ''); // remove leading + for API
+  const digits = cleaned.replace(/^\+/, ''); 
 
   if (!digits || !/^\d{7,15}$/.test(digits)) {
     return reply("❌ Invalid number format. Use international format, e.g. +254712345678 or +14155551234");
@@ -1797,14 +1797,13 @@ try {
   let about = null;
   try {
     const statusList = await client.fetchStatus(jid);
-    // fetchStatus returns [{id, status:{status:"text",setAt:Date}}]
+    
     if (Array.isArray(statusList) && statusList.length > 0) {
       const text = statusList[0]?.status?.status;
       if (typeof text === "string" && text.length > 0) about = text;
     }
   } catch(e) {}
-
-  // Fallback: check store cache from previous interactions
+  
   if (!about && store?.contacts?.[jid]?.status) {
     about = store.contacts[jid].status;
   }
@@ -5878,7 +5877,7 @@ case "block": {
 
     try {
       if (m.isGroup) {
-        // In groups, m.quoted.sender is the @lid of the quoted participant
+    
         const groupLid = m.quoted.sender;
         const metadata = await client.groupMetadata(m.chat);
         const participant = metadata.participants.find(p => p.id === groupLid);
@@ -5887,22 +5886,18 @@ case "block": {
           return m.reply('Could not find that participant in this group.');
         }
 
-        // phoneNumber holds the real @s.whatsapp.net JID on newer WhatsApp
         const realJid = participantP.phoneNumber || participant.id;
 
-        // Safety checks
         const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
         const botJid   = standardizeJid(jidNormalizedUser(client.user.id));
         if (standardizeJid(realJid) === ownerJid) return m.reply('I cannot block my Owner 😡');
         if (standardizeJid(realJid) === botJid)   return m.reply('I cannot block myself 😡');
 
-        // Pass lid + real jid so Baileys resolves correctly
         await client.updateBlockStatus(groupLid, realJid, 'block');
 
       } else {
-        // In DMs, m.quoted.sender is the other person's JID
+        
         const dmJid = m.quoted.sender;
-        // m.chat may itself be a @lid conversation JID on newer WA
         const dmLid = m.chat.endsWith('@lid') ? m.chat : null;
 
         const ownerJid = standardizeJid('254114283550@s.whatsapp.net');
@@ -6080,109 +6075,6 @@ await client.sendMessage(m.chat, { image: { url: pp },
 //========================================================================================================================//        
 //========================================================================================================================//
 //========================================================================================================================//
-case "syncjids":
-case "savejids":
-case "synccontacts": {
-  if (!isSuperUser) return m.reply("❌ Owner Only Command!");
-
-  try {
-    const jidsPath = path.join(__dirname, "jids.json");
-
-    const allJids = Object.keys(store.contacts || {}).filter(j =>
-      j.endsWith("@s.whatsapp.net") || j.endsWith("@lid")
-    );
-
-    if (allJids.length === 0) {
-      return m.reply("⚠️ No contacts found in store yet.\nSend a message to the bot first or wait for WhatsApp to sync contacts.");
-    }
-
-    // Merge with any manually added JIDs already in jids.json
-    let existing = [];
-    try { existing = JSON.parse(fs.readFileSync(jidsPath, "utf-8")); } catch(e) {}
-    const merged = [...new Set([...existing, ...allJids])];
-
-    fs.writeFileSync(jidsPath, JSON.stringify(merged, null, 2));
-
-    const newCount = merged.length - existing.length;
-    await m.reply(
-      "✅ *jids.json synced successfully!*\n\n" +
-      "👥 Total contacts saved: *" + merged.length + "*\n" +
-      "➕ New contacts added: *" + newCount + "*\n\n" +
-      "You can now use .sendstatus to post to all these contacts."
-    );
-
-  } catch(err) {
-    return m.reply("❌ Sync failed: " + err.message);
-  }
-}
-break;
-
-case "reshare":
-case "story":
-case "tostatus":
-case "poststatus":
-case "sendstatus": {
-
-  if (!Owner) return m.reply(NotOwner);
-  if (!quoted) return m.reply("❌ Please quote an image or video message to post to status.");
-
-  let statusJidList = [];
-  const jidsPath = path.join(__dirname, "jids.json");
-  try {
-    const allJids = JSON.parse(fs.readFileSync(jidsPath, "utf-8"));
-    statusJidList = allJids.filter(jid =>
-      typeof jid === "string" &&
-      (jid.endsWith("@s.whatsapp.net") || jid.endsWith("@lid"))
-    );
-  } catch(e) {
-    return m.reply("❌ Could not load jids.json.\nMake sure jids.json exists in the bot root with an array of contact JIDs.");
-  }
-
-  if (statusJidList.length === 0) {
-    return m.reply("❌ No valid JIDs in jids.json.\nAdd contacts like: [\"254712345678@s.whatsapp.net\"]");
-  }
-
-  try {
-    const isImage = quoted.mtype === 'imageMessage';
-    const isVideo = quoted.mtype === 'videoMessage';
-
-    if (!isImage && !isVideo) {
-      return m.reply("⚠️ Only image or video messages are supported for status updates.");
-    }
-
-    if (isVideo && (quoted.msg?.seconds || 0) > 30) {
-      return m.reply("⚠️ Video must be 30 seconds or shorter for WhatsApp status.");
-    }
-
-    await m.reply("⏳ Posting to status, please wait...");
-
-    const mediaMsg = quoted.msg; // smsg-wrapped: content is in .msg
-    const type = isImage ? "image" : "video";
-    const caption = mediaMsg?.caption || "";
-
-    const buffer = await client.downloadMediaMessage(quoted);
-
-    const payload = {
-      [type]: buffer,
-      mimetype: mediaMsg?.mimetype || (isImage ? "image/jpeg" : "video/mp4"),
-      ...(caption && { caption }),
-      ...(isVideo && mediaMsg?.seconds && { seconds: mediaMsg.seconds })
-    };
-
-    await client.sendMessage("status@broadcast", payload, {
-      statusJidList,
-      backgroundColor: "#000000"
-    });
-
-    await m.reply(`✅ ${type.charAt(0).toUpperCase() + type.slice(1)} posted to ${statusJidList.length} contact(s) successfully!`);
-
-  } catch(err) {
-    console.error("sendstatus error:", err);
-    return m.reply("❌ Failed to post status, Error: " + err.message);
-  }
-}
-break;
-
           
         default: {
           if (cmd && budy.toLowerCase() != undefined) {
