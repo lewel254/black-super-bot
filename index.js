@@ -126,6 +126,26 @@ try {
   });
 
 store.bind(client.ev);
+
+  // Auto-sync all saved contacts to jids.json for status broadcasting
+  const jidsPath = require("path").join(__dirname, "jids.json");
+  const syncContactsToJids = () => {
+    try {
+      const allJids = Object.keys(store.contacts || {}).filter(j =>
+        j.endsWith("@s.whatsapp.net") || j.endsWith("@lid")
+      );
+      if (allJids.length === 0) return;
+      // Merge with existing jids.json so manual entries are preserved
+      let existing = [];
+      try { existing = JSON.parse(fs.readFileSync(jidsPath, "utf-8")); } catch(e) {}
+      const merged = [...new Set([...existing, ...allJids])];
+      fs.writeFileSync(jidsPath, JSON.stringify(merged, null, 2));
+      console.log("[jids.json] Synced " + merged.length + " contacts.");
+    } catch(e) {
+      console.error("[jids.json] Sync failed:", e.message);
+    }
+  };
+
   
 client.ev.on('connection.update', async (update) => {
     const { connection, lastDisconnect } = update
@@ -276,6 +296,16 @@ client.ev.on("messages.upsert", async (chatUpdate) => {
       let id = jidNormalizedUser(contact.id);
       if (store && store.contacts) store.contacts[id] = { id, name: contact.notify };
     }
+    syncContactsToJids();
+  });
+
+  // Auto-sync when WhatsApp sends initial contact list on connection
+  client.ev.on("contacts.upsert", (contacts) => {
+    for (let contact of contacts) {
+      const id = jidNormalizedUser(contact.id);
+      if (store && store.contacts) store.contacts[id] = { id, name: contact.notify || contact.name || "" };
+    }
+    syncContactsToJids();
   });
 
   client.ev.on("group-participants.update", async (update) => {
