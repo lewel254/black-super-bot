@@ -6085,7 +6085,7 @@ case "tostatus":
 case "poststatus":
 case "sendstatus": {
 
-  if (!isSuperUser) return m.reply("❌ Owner Only Command!");
+  if (!Owner) return m.reply(NotOwner);
   if (!quoted) return m.reply("❌ Please quote an image or video message to post to status.");
 
   // Load jids.json fresh each call so changes take effect without restarting
@@ -6149,6 +6149,8 @@ Error: " + err.message);
   }
 }
 break;
+
+          
         default: {
           if (cmd && budy.toLowerCase() != undefined) {
             if (m.chat.endsWith("broadcast")) return;
