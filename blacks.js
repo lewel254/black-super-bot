@@ -3942,7 +3942,7 @@ m.reply("An error occured.")
                         externalAdReply: {
                             title: "𝗛𝗶 𝗛𝘂𝗺𝗮𝗻👋, 𝗜 𝗮𝗺 𝗔𝗹𝗶𝘃𝗲 𝗻𝗼𝘄",
                             body: "𝐁𝐋𝐀𝐂𝐊-𝐌𝐃",
-                            thumbnailUrl: "https://files.catbox.moe/rql1hh.jpeg",
+                            thumbnailUrl: "https://files.catbox.moe/dx68cj.jpg",
                             sourceUrl: '',
                             mediaType: 1,
                             renderLargerThumbnail: true
