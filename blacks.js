@@ -1756,26 +1756,37 @@ break;
 case "checknum":
 case "validate":
 try {
-  if (!text) return reply("Usage: .checknum 0712345678\nFetches real WhatsApp status, about text and profile picture.");
+  if (!text) return reply("Usage: .validate +254712345678\nProvide the full number with country code (e.g. +1 for US, +44 for UK, +254 for Kenya).");
 
-  const phone = text.replace(/\D/g, '');
-  if (!phone) return reply("Please provide a valid phone number.");
+  // Strip spaces, dashes, parentheses — keep digits and leading +
+  const cleaned = text.trim().replace(/[\s\-().]/g, '');
+  const digits = cleaned.replace(/^\+/, ''); // remove leading + for API
 
-  const digits = phone.startsWith('254') ? phone
-    : phone.startsWith('0') ? '254' + phone.slice(1)
-    : '254' + phone;
-  const jid = digits + '@s.whatsapp.net';
+  if (!digits || !/^\d{7,15}$/.test(digits)) {
+    return reply("❌ Invalid number format. Use international format, e.g. +254712345678 or +14155551234");
+  }
 
-  const local = '0' + digits.slice(3);
-  let provider = 'Unknown / International';
-  if (local.match(/^07(1|2|3|4|5|6|7|9)/)) provider = 'Safaricom (M-Pesa eligible)';
-  else if (local.match(/^07(0|8)/)) provider = 'Airtel Kenya';
-  else if (local.match(/^01(0|1)/)) provider = 'Safaricom Kenya';
-  else if (local.match(/^07/)) provider = 'Kenyan number (unknown carrier)';
-
-  m.reply('Checking +' + digits + '...');
+  m.reply('🔍 Validating +' + digits + ' worldwide...');
 
   
+  const region = digits.startsWith('1') && digits.length === 11 ? 1 : 3;
+
+  let apiData = null;
+  try {
+    const apiRes = await axios.get('https://api.phonevalidator.com/api/v4/phonesearch', {
+      params: {
+        apikey: 'dbc19b10-f34e-4857-b42b-6c12543d42e3',
+        phone: digits,
+        type: 'basic',
+        region: region
+      },
+      timeout: 10000
+    });
+    apiData = apiRes.data?.PhoneBasic || null;
+  } catch(e) {}
+
+  
+  const jid = digits + '@s.whatsapp.net';
   let onWA = false;
   try {
     const [result] = await client.onWhatsApp(jid);
@@ -1797,12 +1808,21 @@ try {
     if (ppUrl) ppStatus = 'Available';
   } catch(e) {}
 
+  const isValid = apiData?.FakeNumber === 'NO';
+  const lineType = apiData?.LineType || 'Unknown';
+  const carrier = apiData?.PhoneCompany || 'Unknown';
+  const country = apiData?.Country || 'Unknown';
+  const countryCode = apiData?.CountryCode || '??';
+  const fakeReason = apiData?.FakeNumberReason || '';
+
   const replyText =
-    '*📱 Number Check Results*\n' +
+    '*📱 Number Validation Results*\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-    '📞 *Number:* ' + local + '\n' +
-    '🌍 *International:* +' + digits + '\n' +
-    '🏢 *Network:* ' + provider + '\n\n' +
+    '📞 *Number:* +' + digits + '\n' +
+    '🌍 *Country:* ' + country + ' (' + countryCode + ')\n' +
+    '🏢 *Carrier:* ' + carrier + '\n' +
+    '📶 *Line Type:* ' + lineType + '\n' +
+    '✅ *Valid Number:* ' + (isValid ? '✅ Yes' : '❌ No' + (fakeReason ? ' — ' + fakeReason : '')) + '\n\n' +
     '💬 *WhatsApp:* ' + (onWA ? '✅ Active on WhatsApp' : '❌ Not registered on WhatsApp') + '\n' +
     '📝 *About/Bio:* ' + about + '\n' +
     '🖼️ *Profile Pic:* ' + ppStatus + '\n\n' +
