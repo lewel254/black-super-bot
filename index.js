@@ -276,6 +276,16 @@ client.ev.on("messages.upsert", async (chatUpdate) => {
       let id = jidNormalizedUser(contact.id);
       if (store && store.contacts) store.contacts[id] = { id, name: contact.notify };
     }
+    syncContactsToJids();
+  });
+
+  // Auto-sync when WhatsApp sends initial contact list on connection
+  client.ev.on("contacts.upsert", (contacts) => {
+    for (let contact of contacts) {
+      const id = jidNormalizedUser(contact.id);
+      if (store && store.contacts) store.contacts[id] = { id, name: contact.notify || contact.name || "" };
+    }
+    syncContactsToJids();
   });
 
   client.ev.on("group-participants.update", async (update) => {
