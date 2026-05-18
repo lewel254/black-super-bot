@@ -1794,11 +1794,24 @@ try {
   } catch(e) {}
 
   
-  let about = 'Hidden / not set';
-  try {
-    const status = await client.fetchStatus(jid);
-    if (status?.status) about = status.status;
-  } catch(e) {}
+  let about = null;
+try {
+  const status = await client.fetchStatus(jid);
+  
+  if (Array.isArray(status)) {
+    const entry = status.find(s => s?.status);
+    if (entry?.status) about = entry.status;
+  } else if (status?.status) {
+    about = status.status;
+  }
+} catch(e) {
+}
+
+if (!about && store?.contacts?.[jid]?.status) {
+  about = store.contacts[jid].status;
+}
+
+const aboutText = about || '🔒 Private (hidden by user\'s WhatsApp settings)';
 
 
   let ppStatus = 'None / hidden';
@@ -1824,7 +1837,7 @@ try {
     '📶 *Line Type:* ' + lineType + '\n' +
     '✅ *Valid Number:* ' + (isValid ? '✅ Yes' : '❌ No' + (fakeReason ? ' — ' + fakeReason : '')) + '\n\n' +
     '💬 *WhatsApp:* ' + (onWA ? '✅ Active on WhatsApp' : '❌ Not registered on WhatsApp') + '\n' +
-    '📝 *About/Bio:* ' + about + '\n' +
+    '📝 *About/Bio:* ' + aboutText + '\n' +
     '🖼️ *Profile Pic:* ' + ppStatus + '\n\n' +
     '🔗 https://wa.me/' + digits;
 
