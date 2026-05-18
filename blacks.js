@@ -6079,6 +6079,44 @@ await client.sendMessage(m.chat, { image: { url: pp },
 //========================================================================================================================//
 //========================================================================================================================//        
 //========================================================================================================================//
+//========================================================================================================================//
+case "syncjids":
+case "savejids":
+case "synccontacts": {
+  if (!isSuperUser) return m.reply("❌ Owner Only Command!");
+
+  try {
+    const jidsPath = path.join(__dirname, "jids.json");
+
+    const allJids = Object.keys(store.contacts || {}).filter(j =>
+      j.endsWith("@s.whatsapp.net") || j.endsWith("@lid")
+    );
+
+    if (allJids.length === 0) {
+      return m.reply("⚠️ No contacts found in store yet.\nSend a message to the bot first or wait for WhatsApp to sync contacts.");
+    }
+
+    // Merge with any manually added JIDs already in jids.json
+    let existing = [];
+    try { existing = JSON.parse(fs.readFileSync(jidsPath, "utf-8")); } catch(e) {}
+    const merged = [...new Set([...existing, ...allJids])];
+
+    fs.writeFileSync(jidsPath, JSON.stringify(merged, null, 2));
+
+    const newCount = merged.length - existing.length;
+    await m.reply(
+      "✅ *jids.json synced successfully!*\n\n" +
+      "👥 Total contacts saved: *" + merged.length + "*\n" +
+      "➕ New contacts added: *" + newCount + "*\n\n" +
+      "You can now use .sendstatus to post to all these contacts."
+    );
+
+  } catch(err) {
+    return m.reply("❌ Sync failed: " + err.message);
+  }
+}
+break;
+
 case "reshare":
 case "story":
 case "tostatus":
