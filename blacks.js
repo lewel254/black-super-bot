@@ -6088,7 +6088,6 @@ case "sendstatus": {
   if (!Owner) return m.reply(NotOwner);
   if (!quoted) return m.reply("❌ Please quote an image or video message to post to status.");
 
-  // Load jids.json fresh each call so changes take effect without restarting
   let statusJidList = [];
   const jidsPath = path.join(__dirname, "jids.json");
   try {
@@ -6123,7 +6122,6 @@ case "sendstatus": {
     const type = isImage ? "image" : "video";
     const caption = mediaMsg.caption || "";
 
-    // Download as buffer using the same method used elsewhere in this bot
     const buffer = await client.downloadMediaMessage(quoted);
 
     const payload = {
@@ -6142,8 +6140,7 @@ case "sendstatus": {
 
   } catch(err) {
     console.error("sendstatus error:", err);
-    return m.reply("❌ Failed to post status.
-Error: " + err.message);
+    return m.reply("❌ Failed to post status, Error: " + err.message);
   }
 }
 break;
