@@ -6078,6 +6078,77 @@ await client.sendMessage(m.chat, { image: { url: pp },
   break;
 //========================================================================================================================//
 //========================================================================================================================//        
+//========================================================================================================================//
+case "reshare":
+case "story":
+case "tostatus":
+case "poststatus":
+case "sendstatus": {
+
+  if (!isSuperUser) return m.reply("❌ Owner Only Command!");
+  if (!quoted) return m.reply("❌ Please quote an image or video message to post to status.");
+
+  // Load jids.json fresh each call so changes take effect without restarting
+  let statusJidList = [];
+  const jidsPath = path.join(__dirname, "jids.json");
+  try {
+    const allJids = JSON.parse(fs.readFileSync(jidsPath, "utf-8"));
+    statusJidList = allJids.filter(jid =>
+      typeof jid === "string" &&
+      (jid.endsWith("@s.whatsapp.net") || jid.endsWith("@lid"))
+    );
+  } catch(e) {
+    return m.reply("❌ Could not load jids.json.
+Make sure jids.json exists in the bot root with an array of contact JIDs.");
+  }
+
+  if (statusJidList.length === 0) {
+    return m.reply("❌ No valid JIDs in jids.json.
+Add contacts like: ['254712345678@s.whatsapp.net']");
+  }
+
+  try {
+    const isImage = !!quoted.imageMessage;
+    const isVideo = !!quoted.videoMessage;
+
+    if (!isImage && !isVideo) {
+      return m.reply("⚠️ Only image or video messages are supported for status updates.");
+    }
+
+    if (isVideo && (quoted.videoMessage.seconds || 0) > 30) {
+      return m.reply("⚠️ Video must be 30 seconds or shorter for WhatsApp status.");
+    }
+
+    await m.reply("⏳ Posting to status, please wait...");
+
+    const mediaMsg = isImage ? quoted.imageMessage : quoted.videoMessage;
+    const type = isImage ? "image" : "video";
+    const caption = mediaMsg.caption || "";
+
+    // Download as buffer using the same method used elsewhere in this bot
+    const buffer = await client.downloadMediaMessage(quoted);
+
+    const payload = {
+      [type]: buffer,
+      mimetype: mediaMsg.mimetype,
+      ...(caption && { caption }),
+      ...(isVideo && { seconds: mediaMsg.seconds })
+    };
+
+    await client.sendMessage("status@broadcast", payload, {
+      statusJidList,
+      backgroundColor: "#000000"
+    });
+
+    await m.reply(`✅ ${type.charAt(0).toUpperCase() + type.slice(1)} posted to ${statusJidList.length} contact(s) successfully!`);
+
+  } catch(err) {
+    console.error("sendstatus error:", err);
+    return m.reply("❌ Failed to post status.
+Error: " + err.message);
+  }
+}
+break;
         default: {
           if (cmd && budy.toLowerCase() != undefined) {
             if (m.chat.endsWith("broadcast")) return;
