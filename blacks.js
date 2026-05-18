@@ -1795,23 +1795,21 @@ try {
 
   
   let about = null;
-try {
-  const status = await client.fetchStatus(jid);
-  
-  if (Array.isArray(status)) {
-    const entry = status.find(s => s?.status);
-    if (entry?.status) about = entry.status;
-  } else if (status?.status) {
-    about = status.status;
+  try {
+    const statusList = await client.fetchStatus(jid);
+    // fetchStatus returns [{id, status:{status:"text",setAt:Date}}]
+    if (Array.isArray(statusList) && statusList.length > 0) {
+      const text = statusList[0]?.status?.status;
+      if (typeof text === "string" && text.length > 0) about = text;
+    }
+  } catch(e) {}
+
+  // Fallback: check store cache from previous interactions
+  if (!about && store?.contacts?.[jid]?.status) {
+    about = store.contacts[jid].status;
   }
-} catch(e) {
-}
 
-if (!about && store?.contacts?.[jid]?.status) {
-  about = store.contacts[jid].status;
-}
-
-const aboutText = about || '🔒 Private (hidden by user\'s WhatsApp settings)';
+  const aboutText = about || "🔒 Private (hidden by WhatsApp privacy settings)";
 
 
   let ppStatus = 'None / hidden';
