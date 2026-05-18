@@ -5646,7 +5646,7 @@ case 'ytsearch':
                     contextInfo: {
                         externalAdReply: {
                             showAdAttribution: true,
-                            title: '𝐁𝐋𝐀𝐂𝐊𝐌𝐀𝐂𝐇𝐀𝐍𝐓 𝐁𝐎𝐓',
+                            title: '𝐁𝐋𝐀𝐂𝐊-𝐌𝐃 𝐁𝐎𝐓',
                             body: 'https://whatsapp.com/channel/0029VaxCd13DzgTGK42G292X',
                             thumbnailUrl: 'https://i.imgur.com/gmIbuTZ.jpeg',
                             sourceUrl: 'https://whatsapp.com/channel/0029VaxCd13DzgTGK42G292X',
@@ -5673,7 +5673,7 @@ case 'ytsearch':
                 mimetype: "application/vnd.android.package-archive",
                 contextInfo: {
         externalAdReply: {
-          title: `BLACKMACHANT-BOT`,
+          title: `BLACK-MD BOT`,
           body: `${tylor.BK9.name}`,
           thumbnailUrl: `${tylor.BK9.icon}`,
           sourceUrl: `${tylor.BK9.dllink}`,
@@ -5741,7 +5741,7 @@ if (!text) return m.reply("No emojis provided ? ")
    fs.unlinkSync(media); 
    if (err) throw err 
    let buffer = fs.readFileSync(mokaya); 
-   client.sendMessage(m.chat, { image: buffer, caption: `𝗖𝗼𝗻𝘃𝗲𝗿𝘁𝗲𝗱 𝗯𝘆 𝐁𝐋𝐀𝐂𝐊𝐌𝐀𝐂𝐇𝐀𝐍𝐓 𝐁𝐎𝐓𝘁`}, { quoted: m }) 
+   client.sendMessage(m.chat, { image: buffer, caption: `𝗖𝗼𝗻𝘃𝗲𝗿𝘁𝗲𝗱 𝗯𝘆 𝐁𝐋𝐀𝐂𝐊-𝐌𝐃 𝐁𝐎𝐓𝘁`}, { quoted: m }) 
    fs.unlinkSync(mokaya); 
     }); 
     } 
