@@ -6143,30 +6143,30 @@ case "sendstatus": {
   }
 
   try {
-    const isImage = !!quoted.imageMessage;
-    const isVideo = !!quoted.videoMessage;
+    const isImage = quoted.mtype === 'imageMessage';
+    const isVideo = quoted.mtype === 'videoMessage';
 
     if (!isImage && !isVideo) {
       return m.reply("⚠️ Only image or video messages are supported for status updates.");
     }
 
-    if (isVideo && (quoted.videoMessage.seconds || 0) > 30) {
+    if (isVideo && (quoted.msg?.seconds || 0) > 30) {
       return m.reply("⚠️ Video must be 30 seconds or shorter for WhatsApp status.");
     }
 
     await m.reply("⏳ Posting to status, please wait...");
 
-    const mediaMsg = isImage ? quoted.imageMessage : quoted.videoMessage;
+    const mediaMsg = quoted.msg; // smsg-wrapped: content is in .msg
     const type = isImage ? "image" : "video";
-    const caption = mediaMsg.caption || "";
+    const caption = mediaMsg?.caption || "";
 
     const buffer = await client.downloadMediaMessage(quoted);
 
     const payload = {
       [type]: buffer,
-      mimetype: mediaMsg.mimetype,
+      mimetype: mediaMsg?.mimetype || (isImage ? "image/jpeg" : "video/mp4"),
       ...(caption && { caption }),
-      ...(isVideo && { seconds: mediaMsg.seconds })
+      ...(isVideo && mediaMsg?.seconds && { seconds: mediaMsg.seconds })
     };
 
     await client.sendMessage("status@broadcast", payload, {
