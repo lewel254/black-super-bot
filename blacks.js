@@ -477,6 +477,7 @@ let cap = `𝗛𝗲𝘆 𝘁𝗵𝗲𝗿𝗲😊, ${getGreeting()}\n\n╔═━�
 ║   📸 𝐢𝐧𝐬𝐭a
 ║   🦉 image
 ║   🎵 music
+║   🎶 spotify
 ╚════════════════════════╣
 
  ═════════════════════════
@@ -1466,7 +1467,93 @@ break;
   }
 }
 break;
-//========================================================================================================================//                  
+//========================================================================================================================// 
+case "spotify": {
+  if (!text) {
+    return m.reply(
+      "*🎵 Spotify Downloader*\n\n" +
+      "Usage:\n" +
+      "  *" + prefix + "spotify* _song name_\n" +
+      "  *" + prefix + "spotify* _<spotify URL>_\n\n" +
+      "Example: *" + prefix + "spotify* Shape of You Ed Sheeran"
+    );
+  }
+
+  try {
+    let query = text.trim();
+    let displayTitle = query;
+    if (/open\.spotify\.com\/track\//i.test(query)) {
+      try {
+        const oembedRes = await axios.get(
+          `https://open.spotify.com/oembed?url=${encodeURIComponent(query)}`,
+          { timeout: 8000 }
+        );
+        if (oembedRes.data?.title) {
+          displayTitle = oembedRes.data.title;
+          query = oembedRes.data.title;
+        }
+      } catch (_) {}
+    }
+
+    await m.reply(`🔎 _Searching for:_ *${displayTitle}*`);
+
+    const results = await yts(query);
+    const video = results.videos[0];
+    if (!video) return m.reply("❌ No results found for: *" + displayTitle + "*");
+
+    const safeTitle = (displayTitle || video.title).replace(/[\/\\:*?"<>|]/g, '').trim();
+    const fileName = safeTitle + '.mp3';
+    const videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
+
+    await m.reply(
+      `⬇️ _Downloading:_ *${video.title}*\n` +
+      `⏱️ _Duration:_ ${video.timestamp}\n` +
+      `🎤 _Channel:_ ${video.author.name}`
+    );
+    // Try primary API
+    let downloadUrl = null;
+    try {
+      const r1 = await axios.get(
+        `${BASE_URL}/dipto/ytDl3?link=${encodeURIComponent(video.videoId)}&format=mp3`,
+        { timeout: 30000 }
+      );
+      if (r1.data?.downloadLink) downloadUrl = r1.data.downloadLink;
+    } catch (_) {}
+    // Fallback
+    if (!downloadUrl) {
+      try {
+        const r2 = await axios.get(
+          `https://apis.xcasper.space/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`,
+          { timeout: 30000 }
+        );
+        if (r2.data?.success && r2.data?.url) downloadUrl = r2.data.url;
+      } catch (_) {}
+    }
+
+    if (!downloadUrl) {
+      return m.reply("❌ Could not get a download link. Both APIs failed. Try again later.");
+    }
+
+    await client.sendMessage(m.chat, {
+      audio: { url: downloadUrl },
+      mimetype: 'audio/mpeg',
+      fileName
+    }, { quoted: m });
+
+    await client.sendMessage(m.chat, {
+      document: { url: downloadUrl },
+      mimetype: 'audio/mpeg',
+      fileName
+    }, { quoted: m });
+
+  } catch (err) {
+    console.error('[SPOTIFY] error:', err.message || err);
+    m.reply("❌ Failed to download. Try a different name or Spotify link.");
+  }
+}
+break
+
+//========================================================================================================================//          
 case "togroupstatus":
 case "groupstatus":
 case "statusgroup": {
@@ -1487,7 +1574,6 @@ if (!m.isGroup) return m.reply(group);
     let payload = { groupStatusMessage: {} };
 
     if (m.quoted) {
-      // m.quoted is a smsg-wrapped message: use .mtype to check type, .msg for content
       const qtype = m.quoted.mtype || '';
 
       if (qtype === 'imageMessage') {
@@ -1530,13 +1616,11 @@ if (!m.isGroup) return m.reply(group);
         payload.groupStatusMessage.text = m.quoted.text;
       }
 
-      // If user supplied caption
       if (text && !payload.groupStatusMessage.caption) {
         payload.groupStatusMessage.caption = text;
       }
 
     } else {
-      // Plain text
       payload.groupStatusMessage.text = text;
     }
 
@@ -1545,8 +1629,6 @@ if (!m.isGroup) return m.reply(group);
 
     await client.sendMessage(m.chat, payload, { quoted: m });
     if (opusCleanup) try { fs.unlinkSync(opusCleanup); } catch(e) {}
-
-    m.reply("✅ Group status sent.");
 
   } catch (err) {
     console.error("togroupstatus error:", err);
