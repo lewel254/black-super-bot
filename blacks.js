@@ -1794,19 +1794,19 @@ break;
 //========================================================================================================================//                      
 //========================================================================================================================//
 case "blue":
-case "blizzard":
+case "blizzards":
 try {
   const menu =
     '*💙 BLUEBLIZZARDS — Premium Services*\n' +
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
     '🤖 *BOT SHOP*\n' +
     '▸ Anti-ban • Auto-reply • Multi-device\n' +
-    '▸ Basic: $19 | Pro: $49 | Ultimate: $99\n' +
+    '▸ Basic: $1 | Pro: $4 | Ultimate: $10\n' +
     '🔗 https://bot.blueblizzards.site\n\n' +
     '🚀 *DEPLOYMENT*\n' +
     '▸ 5-min setup • DDoS protection\n' +
-    '▸ Quick: $5.99/mo | Custom: $14.99/mo\n' +
-    '🔗 https://deploy.blueblizzards.site\n\n' +
+    '▸ Quick: ksh100/mo | Custom: ksh500/mo\n' +
+    '🔗 https://bot.blueblizzards.site\n\n' +
     '📊 *TRADING*\n' +
     '▸ AI signals • 1:500 leverage • 0.1% fees\n' +
     '▸ Crypto & Forex\n' +
@@ -1816,14 +1816,13 @@ try {
     '🔗 https://freeflix.blueblizzards.site\n\n' +
     '💰 *AFFILIATE PROGRAM*\n' +
     '▸ Earn 30% recurring commission\n' +
-    '▸ $5 per signup • Daily payouts\n' +
+    '▸ signup • Daily payouts\n' +
     '🔗 https://blueblizzards.site/affiliate\n\n' +
     '📞 *SUPPORT — 24/7*\n' +
     '▸ Live chat: https://nexus.blueblizzards.site/support\n' +
-    '▸ Email: support@blueblizzards.site\n' +
-    '▸ Telegram: @BlueblizzardsSupport\n\n' +
+    '▸ Email: blueblizzardme22@gmail.com\n' +
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-    '⭐ 4.9/5 • 10k+ users • 🟢 All systems go';
+    '⭐ 4.9/5 • 1k+ users • 🟢 All systems go';
 
   await client.sendMessage(m.chat, { text: menu }, { quoted: m });
 } catch (error) {
